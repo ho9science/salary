@@ -1,31 +1,30 @@
 <template>
   <div>
-    <form @submit="addTodo">
-      <input type="text" v-model="title" name="title" placeholder="연봉을 입력하세요">
+    <form @submit="caclSalary">
+      <input type="text" v-model="salary" name="salary" placeholder="연봉을 입력하세요">
       <input type="submit" value="계산" class="btn">
     </form>
   </div>
 </template>
 
 <script>
-// import uuid from 'uuid';
 export default {
-  name: "AddTodo",
+  name: "CalculateSalary",
   data() {
     return {
-      title: ''
+      salary: ''
     }
   },
   methods: {
-    addTodo(e) {
+    caclSalary(e) {
       e.preventDefault();
-      const newTodo = {
-        title: this.title,
-        completed: false
+      const targetSalary = {
+        salary: this.salary,
+        period: 'year'
       }
       // Send up to parent
-      this.$emit('add-todo', newTodo);
-      this.title = '';
+      this.$emit('calc-salary', targetSalary);
+      this.salary = '';
     }
   }
 }

@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <AddTodo v-on:add-todo="addTodo" />
-    <RealSalary v-bind:todos="todos" v-on:del-todo="deleteTodo" />
+    <CalculateSalary v-on:calc-salary="calcSalary" />
+    <RealSalary v-bind:salary="salary" v-on:del-todo="deleteTodo" />
   </div>
 </template>
 
 <script>
 import RealSalary from '../components/RealSalary';
+import CalculateSalary from '../components/CalculateSalary';
 import AddTodo from '../components/AddTodo';
 import axios from 'axios';
 export default {
   name: 'Home',
   components: {
     RealSalary,
-    AddTodo
+    CalculateSalary
   },
   data() {
     return {
@@ -22,8 +23,12 @@ export default {
           userId: 1,
           id: 11,
           title: 'samdasu',
-          completed: false,
-          salary: 36000000,
+          completed: false
+        }
+      ],
+      salary: [
+        {
+          origin: 2500000,
           pension: 90000,
           health: 60000,
           longterm: 10000,
@@ -31,9 +36,10 @@ export default {
           real: 3000000,
           tax: 12000,
           local: 1200,
-          exemption: 100000
+          total: 220000
         }
       ]
+
     }
   },
   methods: {
@@ -49,6 +55,15 @@ export default {
         completed
       })
         .then(res => this.todos = [...this.todos, res.data])
+        .catch(err => console.log(err));
+    },
+    calcSalary(targetSalary) {
+      const { salary, period } = targetSalary;
+      axios.post('http://localhost:8000/calculate/', {
+        salary,
+        period
+      })
+        .then(res => this.salary = [...this.salary, res.data])
         .catch(err => console.log(err));
     }
   }
