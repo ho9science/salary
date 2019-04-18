@@ -8,7 +8,6 @@
 <script>
 import RealSalary from '../components/RealSalary';
 import CalculateSalary from '../components/CalculateSalary';
-import AddTodo from '../components/AddTodo';
 import axios from 'axios';
 export default {
   name: 'Home',
@@ -58,13 +57,8 @@ export default {
         .catch(err => console.log(err));
     },
     calcSalary(targetSalary) {
-      const { salary, period } = targetSalary;
-      axios.post('http://localhost:8000/calculate/', {
-        salary,
-        period
-      })
-        .then(res => this.salary = [...this.salary, res.data])
-        .catch(err => console.log(err));
+    console.log(targetSalary);
+     
     }
   }
 }
