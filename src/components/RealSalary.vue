@@ -10,7 +10,7 @@
           <tr><th>고용보험</th><td>{{celery.employ}}</td></tr>
           <tr><th>소득세</th><td>{{celery.tax}}</td></tr>
           <tr><th>지방세</th><td>{{celery.local}}</td></tr>
-          <tr><th>공제액</th><td>{{celery.total}}</td></tr>
+          <tr><th>공제액</th><td>{{celery.deducted}}</td></tr>
       </table>
     </div>
   </div>

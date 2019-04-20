@@ -27,15 +27,7 @@ export default {
       ],
       salary: [
         {
-          origin: 2500000,
-          pension: 90000,
-          health: 60000,
-          longterm: 10000,
-          employ: 2000,
-          real: 3000000,
-          tax: 12000,
-          local: 1200,
-          total: 220000
+         
         }
       ]
 
@@ -57,8 +49,8 @@ export default {
         .catch(err => console.log(err));
     },
     calcSalary(targetSalary) {
-    console.log(targetSalary);
-     
+      this.salary = [targetSalary];
+      
     }
   }
 }
