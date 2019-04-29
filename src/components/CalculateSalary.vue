@@ -1,33 +1,44 @@
 <template>
   <div>
+    <ViewWon v-bind:salary="salary"/>
     <form @submit="caclSalary">
-      <input type="text" v-model="salary" name="salary" placeholder="연봉을 입력하세요">
+      <input type="text" v-model="salary" name="salary" placeholder="연봉을 입력하세요" :maxlength="max">
       <input type="submit" value="계산" class="btn">
+      <p>부양가족<p>
+      <input type="text" v-model="family" name="family" />
+      <p>20세이하 자녀</p>
+      <input type="text" v-model="minor" name="minor" />
+      <p>비과세 금액</p>
+      <input type="text" v-model="exemption" name="exemption" />
     </form>
   </div>
 </template>
 
 <script>
+import ViewWon from './ViewWon';
 const MANWON = 10000
 const CHONWON = 1000
 export default {
   name: "CalculateSalary",
+  components: {
+    ViewWon
+  },
   data() {
     return {
-      salary: ''
+      max: 12,
+      salary: '',
+      family: 1,
+      minor: 0,
+      exemption: 100000
     }
   },
   methods: {
     caclSalary(e) {
       e.preventDefault();
-      var exemption = 100000;
-      var salary = this.salary;
-      if(salary > 1060000){
-        salary = salary - exemption;
-      }
-      var tax = this.calc_simple_tax(salary);
+      var salary = this.set_exemption(this.salary);
+      var tax = this.calc_simple_tax(salary, this.family, this.minor);
       var local = this.calc_local_tax(tax);
-      var pension = this.calc_annuity_insurance_deduction(this.median_income_section(salary));
+      var pension = this.calc_annuity_insurance_deduction(this.median_income_section(salary))/12;
       var health = this.calc_health_insurance(salary);
       var longterm = this.calc_long_term_insurance(health);   
       var employ = this.calc_employment_insurance(salary); 
@@ -65,7 +76,7 @@ export default {
       median = Math.floor(str_pay/10)*10 + 5
       median = median * 1000
     }else if (pay < 10000*CHONWON){
-      point = str_pay - Math.floor(str_pay/100)*100
+      var point = str_pay - Math.floor(str_pay/100)*100
       if (0 <= point < 20){
         median = Math.floor(str_pay/100)*100 + 10
       }else if (20 <= point < 40){
@@ -106,7 +117,7 @@ export default {
       return (number_of_people+number_of_less_than_twenty) * 150*MANWON
     },
     calc_annuity_insurance_deduction(monthly_salary){ //연금보험료공제
-      var annuity_insurance_amount = this.calc_national_pension(monthly_salary);
+      var annuity_insurance_amount = this.calc_national_pension(monthly_salary) * 12;
       if (monthly_salary <= 30*MANWON){
         annuity_insurance_amount = 15.66*MANWON;
       }else if (monthly_salary >= 448*MANWON){
@@ -225,7 +236,7 @@ export default {
       return health_insurance - health_insurance % 10
     },
     calc_long_term_insurance(health_insurance){ //장기요양보험료
-	    var long_term_insurance = health_insurance * 0.0851 * 0.5;
+	    var long_term_insurance = health_insurance * 0.0851;
       return long_term_insurance - long_term_insurance % 10
     },
     calc_employment_insurance(monthly_salary){ //고용보험
@@ -236,20 +247,36 @@ export default {
       var local_income_tax = tax * 0.1;
       return local_income_tax - local_income_tax % 10    
     },
-    calc_simple_tax(salary){
+    calc_simple_tax(salary, family=1, minor=0){
+      family *= 1;
+      minor *= 1;
       salary = this.median_income_section(salary)
       var annuity_insurance = this.calc_annuity_insurance_deduction(salary) *12; // 월급,연봉 파라미터 반영 필요
       salary = salary * 12
       var earned_income_deduction = this.calc_earned_income_deduction(salary);
+      console.log(earned_income_deduction)
       var earned_income_amount = this.calc_earned_income_amount(salary, earned_income_deduction);
-		  var personal_allowance = this.calc_personal_allowance(); // 가족, 20세미만
-      var special_income_deduction = this.calc_special_income_deduction(salary); //가족공제
+      console.log(earned_income_amount)
+      var personal_allowance = this.calc_personal_allowance(family, minor); // 가족, 20세미만
+      console.log(personal_allowance)
+      var special_income_deduction = this.calc_special_income_deduction(salary, family); //가족공제
+      console.log(special_income_deduction)
       var tax_base = this.calc_tax_base(earned_income_amount, personal_allowance, annuity_insurance, special_income_deduction);
+      console.log(tax_base)
       var tax_assessment = this.calc_tax_assessment(tax_base);
+      console.log(tax_assessment)
       var tax_credit = this.calc_earned_income_tax_credit(tax_assessment, salary);
+      console.log(tax_credit)
       var finalized_tax_amount = this.calc_finalized_tax_amount(tax_assessment, tax_credit);
       var tax = this.calc_ease_tax_amount(finalized_tax_amount);
       return tax
+    },
+    set_exemption(salary){
+      var exemption = this.exemption;
+      if((salary-exemption) > 1060000){
+        salary = salary - exemption;
+      }
+      return salary
     }
   }
 }
