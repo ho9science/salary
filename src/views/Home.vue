@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <CalculateSalary v-on:calc-salary="calcSalary" />
     <RealSalary v-bind:salary="salary" v-on:del-todo="deleteTodo" />
   </div>
@@ -77,4 +77,23 @@ export default {
   .btn:hover {
     background: #666;
   }
+  .container{
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 1200px){
+.container {
+    width: 1170px;
+}
+}
+@media (min-width: 992px){
+.container {
+    width: 970px;
+}
+}
+@media (min-width: 768px){
+.container {
+    width: 750px;
+}
+}
 </style>

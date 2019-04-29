@@ -20,13 +20,18 @@ export default {
   methods: {
     caclSalary(e) {
       e.preventDefault();
-      var tax = this.calc_simple_tax(this.salary);
+      var exemption = 100000;
+      var salary = this.salary;
+      if(salary > 1060000){
+        salary = salary - exemption;
+      }
+      var tax = this.calc_simple_tax(salary);
       var local = this.calc_local_tax(tax);
-      var pension = this.calc_national_pension(this.median_income_section(this.salary));
-      var health = this.calc_health_insurance(this.salary);
+      var pension = this.calc_annuity_insurance_deduction(this.median_income_section(salary));
+      var health = this.calc_health_insurance(salary);
       var longterm = this.calc_long_term_insurance(health);   
-      var employ = this.calc_employment_insurance(this.salary); 
-      var deducted = tax+local+pension+longterm+employ;
+      var employ = this.calc_employment_insurance(salary); 
+      var deducted = tax+local+pension+health+longterm+employ;
       var real = this.salary - deducted;
       const targetSalary = {
         origin: this.salary,
@@ -232,14 +237,8 @@ export default {
       return local_income_tax - local_income_tax % 10    
     },
     calc_simple_tax(salary){
-      var exemption = 100000;
-      if(salary > 1060000){
-        salary = salary - exemption;
-      }
       salary = this.median_income_section(salary)
-      console.log(salary)
-      var annuity_insurance = this.calc_annuity_insurance_deduction(salary);
-      console.log(annuity_insurance);
+      var annuity_insurance = this.calc_annuity_insurance_deduction(salary) *12; // 월급,연봉 파라미터 반영 필요
       salary = salary * 12
       var earned_income_deduction = this.calc_earned_income_deduction(salary);
       var earned_income_amount = this.calc_earned_income_amount(salary, earned_income_deduction);
