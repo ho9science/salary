@@ -10,6 +10,10 @@
       <input type="text" v-model="minor" name="minor" />
       <p>비과세 금액</p>
       <input type="text" v-model="exemption" name="exemption" />
+      <input type="radio" v-model="year" id="year" name="year" value="year"/>
+      <label for="year">연봉</label>
+      <input type="radio" v-model="year" id="month" name="year" value="month"/>
+      <label for="month">월급</label>
     </form>
   </div>
 </template>
@@ -29,7 +33,8 @@ export default {
       salary: '',
       family: 1,
       minor: 0,
-      exemption: 100000
+      exemption: 100000,
+      year: "year"
     }
   },
   methods: {
@@ -247,9 +252,19 @@ export default {
       var local_income_tax = tax * 0.1;
       return local_income_tax - local_income_tax % 10    
     },
-    calc_simple_tax(salary, family=1, minor=0){
+    calc_simple_tax(salary, family=1, minor=0, year=true){
       family *= 1;
       minor *= 1;
+      if(year){ //연봉, 월급 구분
+        if(salary<=12720000){
+          return 0;
+        }
+        salary /= 12;
+      }else{
+        if(salary<=106000){
+          return 0;
+        }
+      }
       salary = this.median_income_section(salary)
       var annuity_insurance = this.calc_annuity_insurance_deduction(salary) *12; // 월급,연봉 파라미터 반영 필요
       salary = salary * 12
@@ -271,10 +286,16 @@ export default {
       var tax = this.calc_ease_tax_amount(finalized_tax_amount);
       return tax
     },
-    set_exemption(salary){
+    set_exemption(salary, year=true){
       var exemption = this.exemption;
-      if((salary-exemption) > 1060000){
-        salary = salary - exemption;
+      if(year){
+        if((salary-exemption) > 12720000){
+          salary = salary - exemption*12;
+        }
+      }else{
+        if((salary-exemption) > 1060000){
+          salary = salary - exemption;
+        }
       }
       return salary
     }
