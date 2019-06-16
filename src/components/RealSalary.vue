@@ -2,15 +2,14 @@
   <div class="salary-container">
     <div class="" v-bind:key="celery.real" v-for="celery in salary">
       <table class="salary-item">
-          <tr><th>세전수령액</th><td>{{celery.origin}}</td></tr>
-          <tr><th>실수령액</th><td>{{celery.real}}</td></tr>
-          <tr><th>국민연금</th><td>{{celery.pension}}</td></tr>
-          <tr><th>건강보험</th><td>{{celery.health}}</td></tr>
-          <tr><th>장기요양보험</th><td>{{celery.longterm}}</td></tr>
-          <tr><th>고용보험</th><td>{{celery.employ}}</td></tr>
-          <tr><th>소득세</th><td>{{celery.tax}}</td></tr>
-          <tr><th>지방세</th><td>{{celery.local}}</td></tr>
-          <tr><th>공제액</th><td>{{celery.deducted}}</td></tr>
+          <tr><th>현재 연봉</th><td>{{celery.now_year}}</td></tr>
+          <tr><th>이직할 연봉</th><td>{{celery.next_year}}</td></tr>
+          <tr><th>연봉 차이</th><td>{{celery.gap_now_year}}</td></tr>
+          <tr><th>월급 차이</th><td>{{celery.gap_now_month}}</td></tr>
+          <tr><th>현재 연봉 실수령액</th><td>{{celery.now_real}}</td></tr>
+          <tr><th>이직 후 예상 실수령액</th><td>{{celery.change_real}}</td></tr>
+          <tr><th>실수령 기준 월급차이</th><td>{{celery.gap_real_month}}</td></tr>
+          <tr><th>실수령 기준 연봉차이</th><td>{{celery.gap_real_year}}</td></tr>
       </table>
     </div>
   </div>
