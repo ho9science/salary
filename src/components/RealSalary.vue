@@ -4,6 +4,7 @@
       <table class="salary-item">
           <tr><th>현재 연봉</th><td>{{celery.now_year}}</td></tr>
           <tr><th>이직할 연봉</th><td>{{celery.next_year}}</td></tr>
+          <tr><th>연봉 상승률</th><td>{{celery.rate_of_rise}}%</td></tr>
           <tr><th>연봉 차이</th><td>{{celery.gap_now_year}}</td></tr>
           <tr><th>월급 차이</th><td>{{celery.gap_now_month}}</td></tr>
           <tr><th>현재 연봉 실수령액</th><td>{{celery.now_real}}</td></tr>

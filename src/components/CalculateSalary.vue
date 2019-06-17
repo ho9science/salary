@@ -51,6 +51,8 @@ export default {
       var gap_real_month = Math.round(next_monthly - now_monthly);
       var change_real = Math.round(now_monthly * now_time + next_monthly * next_time);
       var gap_real_year = change_real - now_real;
+      var temp_of_rise = (next_salary/now_salary-1) * 100;
+      var rate_of_rise = temp_of_rise - temp_of_rise % 10;
       const targetSalary = {
         now_year: now_salary,
         next_year: next_salary,
@@ -59,7 +61,8 @@ export default {
         gap_real_year : gap_real_year,
         gap_real_month : gap_real_month,
         gap_now_year: gap_now_year,
-        gap_now_month: gap_now_month
+        gap_now_month: gap_now_month,
+        rate_of_rise: rate_of_rise
       }
       // Send up to parent
       this.$emit('calc-salary', targetSalary);
