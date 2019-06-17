@@ -2,27 +2,35 @@
   <div>
     
     <form @submit="caclSalary">
-      <label for="now_salary">현직장 연봉</label>
+      <div>
+        <label for="now_salary">현직장 연봉</label>
       <ViewWon v-bind:salary="now_salary"/>
       <input type="text" v-model="now_salary" id="now_salary" name="now_salary" placeholder="연봉을 입력하세요" :maxlength="max">
+      </div>
+      <div>
       <label for="next_salary">이직할 연봉</label>
       <ViewWon v-bind:salary="next_salary"/>
       <input type="text" v-model="next_salary" id="next_salary" name="next_salary" placeholder="연봉을 입력하세요" :maxlength="max">
-      <input type="number" v-model="time" name="time" min="1" max="12">
-      <button type="submit">계산</button>
+      </div>
+      <div claiss="slider-box">
+        <SliderMonth/>
+        <button type="submit">계산</button>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
 import ViewWon from './ViewWon';
+import SliderMonth from './SliderMonth';
 import kosimpletax from 'kosimpletax';
 const MANWON = 10000
 const CHONWON = 1000
 export default {
   name: "CalculateSalary",
   components: {
-    ViewWon
+    ViewWon,
+    SliderMonth
   },
   data() {
     return {
@@ -51,8 +59,8 @@ export default {
       var gap_real_month = Math.round(next_monthly - now_monthly);
       var change_real = Math.round(now_monthly * now_time + next_monthly * next_time);
       var gap_real_year = change_real - now_real;
-      var temp_of_rise = (next_salary/now_salary-1) * 100;
-      var rate_of_rise = temp_of_rise - temp_of_rise % 10;
+      console.log((next_salary/now_salary-1) * 100)
+      var rate_of_rise = ((next_salary/now_salary-1) * 100).toFixed(2);
       const targetSalary = {
         now_year: now_salary,
         next_year: next_salary,
@@ -73,7 +81,7 @@ export default {
 
 <style scoped>
   form {
-    display: flex;
+    
   }
   input[type="text"] {
     flex: 10;
