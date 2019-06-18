@@ -6,7 +6,7 @@
       :range="slider.range"
       :labelStyles="{ color: '#4a4a4a', backgroundColor: '#4a4a4a' }"
       :processStyle="{ backgroundColor: '#d8d8d8' }"
-      @callbackRange="callbackRange">
+      @input="getValue">
     </VueSlideBar>
   </div>
 </template>
@@ -74,7 +74,10 @@ export default {
   },
   methods: {
     callbackRange (val) {
-      this.rangeValue = val
+      this.rangeValue = val;
+    },
+    getValue(val){
+      this.$emit('sliderValue', val);
     }
   },
   components: {

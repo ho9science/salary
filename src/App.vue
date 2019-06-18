@@ -15,15 +15,22 @@ export default {
 }
 </script>
 
+
+
 <style>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&amp;subset=korean');
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
   body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
     line-height: 1.4;
+    color: #fff;
+    background-color:#9966ff;
+    overflow: hidden;
+    width:100%;
   }
   .btn {
     display: inline-block;

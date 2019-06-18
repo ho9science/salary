@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container">
     <CalculateSalary v-on:calc-salary="calcSalary" />
-    <RealSalary v-bind:salary="salary" v-on:del-todo="deleteTodo" />
+    <RealSalary v-bind:salary="salary" />
   </div>
 </template>
 
@@ -57,15 +57,6 @@ export default {
 </script>
 
 <style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.4;
-  }
   .btn {
     display: inline-block;
     border: none;
@@ -80,20 +71,16 @@ export default {
   .container{
   margin-right: auto;
   margin-left: auto;
+  margin-top:40px;
 }
-@media (min-width: 1200px){
+@media (min-width: 1024px){
 .container {
-    width: 1170px;
+  max-width: 1024px;
 }
 }
-@media (min-width: 992px){
+@media (min-width: 360px){
 .container {
-    width: 970px;
-}
-}
-@media (min-width: 768px){
-.container {
-    width: 750px;
+  min-width: 360px;
 }
 }
 </style>

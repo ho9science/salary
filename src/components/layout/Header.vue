@@ -1,10 +1,7 @@
 <template>
   <header class="header">
-    <h1>이얼바</h1>
-    <h2>이직하면 얼마 받을까?</h2>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="nav">
+      <router-link to="/">연봉.kr</router-link>
     </div>
   </header>
 </template>
@@ -16,11 +13,20 @@ export default {
 </script>
 
 <style scoped>
+.nav{
+  padding: 5% 0 5% 5%;
+  font-size: 30px;
+  font-weight: 600;
+}
   .header {
-    background: #333;
     color: #fff;
-    text-align: center;
-    padding: 10px;
+    height:100px;
+    width: 1024px;
+    min-width: 1024px !important;
+    left: 50%;
+    margin-left: -512px;
+    position:fixed;
+    top:0;
   }
   .header a {
     color: #fff;
