@@ -26,19 +26,18 @@ export default {
 
 <style scoped>
 .salary-item{  
-
-}
-tr {
-  border-bottom: 1px solid #000;
+  font-size:20px;
 }
 th,
 td {
   text-align: left;
-  padding: 0.5em 1em;
+  padding: 0.4em 0.6em;
 }
 .salary-container{
   margin: 0 auto;
   width: 360px;
+  background-color: black;
+  opacity: 0.6;
 }
 
 </style>

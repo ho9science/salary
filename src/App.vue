@@ -28,9 +28,10 @@ export default {
     font-family: 'Nanum Gothic', sans-serif;
     line-height: 1.4;
     color: #fff;
-    background-color:#9966ff;
+    /* background-color:#9966ff; */
     overflow: hidden;
     width:100%;
+    background-image: url("./assets/img/korea-cash.jpg");
   }
   .btn {
     display: inline-block;

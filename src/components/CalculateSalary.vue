@@ -2,17 +2,15 @@
   <div class="calc-header">
     <form @submit="caclSalary">
       <div>
-        <label for="now_salary">현직장 연봉</label>
+        <label for="now_salary">현재 연봉</label>
       <ViewWon v-bind:salary="now_salary"/>
       <input type="text" v-model="now_salary" id="now_salary" name="now_salary" placeholder="연봉을 입력하세요" :maxlength="max">
       </div>
       <div>
-      <label for="next_salary">이직할 연봉</label>
-      <ViewWon v-bind:salary="next_salary"/>
-      <input type="text" v-model="next_salary" id="next_salary" name="next_salary" placeholder="연봉을 입력하세요" :maxlength="max">
-      </div>
-      <div>
-        <button type="submit">계산</button>
+        <label for="next_salary">예상 연봉</label>
+        <ViewWon v-bind:salary="next_salary"/>
+        <input type="text" v-model="next_salary" id="next_salary" name="next_salary" placeholder="연봉을 입력하세요" :maxlength="max">
+        <button type="submit" class="calc-btn">계산</button>
       </div>
       <div claiss="slider-box">        
         <SliderMonth         
@@ -91,10 +89,42 @@ export default {
     padding: 5% 5% 3% 5%;
   }
   input[type="text"] {
-    flex: 10;
-    padding: 5px;
+    display: inline-block;
+    width: 30%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
   input[type="submit"] {
     flex: 2;
+  }
+  .calc-btn{
+    margin-left:20px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
 </style>
