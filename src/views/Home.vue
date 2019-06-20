@@ -1,11 +1,23 @@
 <template>
-  <div id="app" class="container">
-    <CalculateSalary v-on:calc-salary="calcSalary" />
-    <RealSalary v-bind:salary="salary" />
-  </div>
+<div>
+    <full-page ref="fullpage" :options="options" id="fullpage">
+    <div class="section">
+      <div id="app" class="container">
+      <CalculateSalary v-on:calc-salary="calcSalary" />
+      </div>
+    </div>
+    <div class="section">
+      <RealSalary v-bind:salary="salary" />
+    </div>
+    <div class="section">
+      <LifetimeEarning v-bind:salary="salary"/>
+    </div>
+  </full-page>
+</div>
 </template>
 
 <script>
+import LifetimeEarning from '../components/LifetimeEarning';
 import RealSalary from '../components/RealSalary';
 import CalculateSalary from '../components/CalculateSalary';
 import axios from 'axios';
@@ -13,7 +25,8 @@ export default {
   name: 'Home',
   components: {
     RealSalary,
-    CalculateSalary
+    CalculateSalary,
+    LifetimeEarning
   },
   data() {
     return {
@@ -29,7 +42,11 @@ export default {
         {
          
         }
-      ]
+      ],
+      options: {
+        menu: '#menu',
+        anchors: ['page1', 'page2', 'page3']
+      },
 
     }
   },
